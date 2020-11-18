@@ -1,5 +1,6 @@
 package com.andygo298.machinist_asistant_bot;
 
+import com.andygo298.machinist_asistant_bot.botapi.TelegramFacade;
 import lombok.Setter;
 import org.telegram.telegrambots.bots.TelegramWebhookBot;
 import org.telegram.telegrambots.meta.api.methods.BotApiMethod;
@@ -13,6 +14,12 @@ public class MachinistTelegramBot extends TelegramWebhookBot {
     private String webHookPath;
     private String botUserName;
     private String botToken;
+
+    private TelegramFacade telegramFacade;
+
+    public MachinistTelegramBot(TelegramFacade telegramFacade) {
+        this.telegramFacade = telegramFacade;
+    }
 
     @Override
     public String getBotToken() {
@@ -31,17 +38,9 @@ public class MachinistTelegramBot extends TelegramWebhookBot {
 
     @Override
     public BotApiMethod<?> onWebhookUpdateReceived(Update update) {
+        final BotApiMethod<?> replyMessageToUser = telegramFacade.handleUpdate(update);
 
-        if (update.getMessage() != null && update.getMessage().hasText()){
-            long chatId = update.getMessage().getChatId();
-
-            try {
-                execute(new SendMessage(chatId, "Hello world!!!" + update.getMessage().getText()));
-            }catch (TelegramApiException e){
-                e.printStackTrace();
-            }
-        }
-        return null;
+        return replyMessageToUser;
     }
 
 }

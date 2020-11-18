@@ -1,6 +1,7 @@
 package com.andygo298.machinist_asistant_bot.appconfig;
 
 import com.andygo298.machinist_asistant_bot.MachinistTelegramBot;
+import com.andygo298.machinist_asistant_bot.botapi.TelegramFacade;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -20,8 +21,8 @@ public class BotConfig {
     private String botToken;
 
     @Bean
-    public MachinistTelegramBot machinistTelegramBot() {
-        MachinistTelegramBot machinistTelegramBot = new MachinistTelegramBot();
+    public MachinistTelegramBot machinistTelegramBot(TelegramFacade telegramFacade) {
+        MachinistTelegramBot machinistTelegramBot = new MachinistTelegramBot(telegramFacade);
         machinistTelegramBot.setBotUserName(botUserName);
         machinistTelegramBot.setBotToken(botToken);
         machinistTelegramBot.setWebHookPath(webHookPath);
