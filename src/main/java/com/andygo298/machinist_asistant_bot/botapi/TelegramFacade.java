@@ -73,6 +73,12 @@ public class TelegramFacade {
             case "Главная":
                 botState = BotState.SHOW_MAIN_MENU;
                 break;
+            case "Свойства материалов":
+                botState = BotState.MATERIAL_PROPERTIES_MENU;
+                break;
+            case "Допуски":
+                botState = BotState.REPLY_TOLERANCE;
+                break;
             default:
                 botState = userDataCache.getUsersCurrentBotState(userId);
                 break;

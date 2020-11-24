@@ -1,6 +1,5 @@
 package com.andygo298.machinist_asistant_bot.service;
 
-import com.andygo298.machinist_asistant_bot.cache.UserDataCache;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
@@ -11,14 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MainMenuService {
+public class MaterialPropertiesService {
 
-
-    public SendMessage getMainMenuMessage(final long chatId, final String textMessage) {
+    public SendMessage getMaterialMenuMessage(final long chatId, final String textMessage) {
         final ReplyKeyboardMarkup replyKeyboardMarkup = getMainMenuKeyboard();
-        final SendMessage mainMenuMessage =
-                createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
-        return mainMenuMessage;
+        return createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
     }
 
     private ReplyKeyboardMarkup getMainMenuKeyboard() {
@@ -31,15 +27,9 @@ public class MainMenuService {
         List<KeyboardRow> keyboard = new ArrayList<>();
 
         KeyboardRow row1 = new KeyboardRow();
-        KeyboardRow row2 = new KeyboardRow();
-        KeyboardRow row3 = new KeyboardRow();
-        row1.add(new KeyboardButton("Формулы"));
-        row2.add(new KeyboardButton("Допуски"));
-        row3.add(new KeyboardButton("Свойства материалов"));
-        row3.add(new KeyboardButton("Полезные ссылки"));
+
+        row1.add(new KeyboardButton("Главная"));
         keyboard.add(row1);
-        keyboard.add(row2);
-        keyboard.add(row3);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
     }

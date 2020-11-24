@@ -16,10 +16,7 @@ public class FormulaMenuService {
 
     public SendMessage getMainMenuMessage(final long chatId, final String textMessage) {
         final ReplyKeyboardMarkup replyKeyboardMarkup = getMainMenuKeyboard();
-        final SendMessage formulaMenuMessage =
-                createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
-
-        return formulaMenuMessage;
+        return createMessageWithKeyboard(chatId, textMessage, replyKeyboardMarkup);
     }
 
     private ReplyKeyboardMarkup getMainMenuKeyboard() {
@@ -33,13 +30,16 @@ public class FormulaMenuService {
 
         KeyboardRow row1 = new KeyboardRow();
         KeyboardRow row2 = new KeyboardRow();
+        KeyboardRow row3 = new KeyboardRow();
 
         row1.add(new KeyboardButton("Главная"));
         row2.add(new KeyboardButton("Расчёт режимов резания"));
-        row1.add(new KeyboardButton("Резьбофрезерование"));
-        row2.add(new KeyboardButton("Геометрические формулы"));
+        row2.add(new KeyboardButton("Резьбофрезерование"));
+        row3.add(new KeyboardButton("Геометрические формулы"));
+        row3.add(new KeyboardButton("Расчет времени"));
         keyboard.add(row1);
         keyboard.add(row2);
+        keyboard.add(row3);
         replyKeyboardMarkup.setKeyboard(keyboard);
         return replyKeyboardMarkup;
     }
