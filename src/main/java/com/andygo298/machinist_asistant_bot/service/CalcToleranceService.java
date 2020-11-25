@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 public class CalcToleranceService {
@@ -27,16 +28,19 @@ public class CalcToleranceService {
     private SendMessage createMessage(long chatId, String textMessage) {
         String pattern1 = "[a-zA-z]";
         String pattern2 = "[^a-zA-z]+";
-        Double upperTolerance;
-        Double lowerTolerance;
-        Double middleDimension;
+        double upperTolerance;
+        double lowerTolerance;
+        double middleDimension;
         List<String> dimensionAndToleranceValue = Arrays.asList(textMessage.split(pattern1));
         String letterTolerance = textMessage.replaceAll(pattern2, "");
 
-
-        ToleranceData toleranceData = dataService.findTolerance(
-                Double.parseDouble(dimensionAndToleranceValue.get(0)), letterTolerance.toLowerCase(), Integer.parseInt(dimensionAndToleranceValue.get(1))
-        );
+        try {
+            ToleranceData toleranceData = dataService.findTolerance(
+                    Double.parseDouble(dimensionAndToleranceValue.get(0)), letterTolerance.toLowerCase(), Integer.parseInt(dimensionAndToleranceValue.get(1))
+            );
+            if (Objects.isNull(toleranceData)){
+                return new SendMessage(chatId, "Данные о допуске отстутвуют в базе. Данная страница еще в разработке.");
+            }
 
         if (Character.isLowerCase(letterTolerance.charAt(0))) {
             upperTolerance = toleranceData.getUpperTolerance() / 1000;
@@ -55,7 +59,10 @@ public class CalcToleranceService {
                 .append("\n- ").append(lowerTolerance).append(messageService.getReplyText("reply.millimeter")).append("\n")
                 .append(messageService.getReplyText("reply.middleDimension"))
                 .append("\n ").append(middleDimension).append(messageService.getReplyText("reply.millimeter"));
+            return new SendMessage(chatId, outText.toString()).setParseMode(ParseMode.HTML);
+        } catch (NumberFormatException | IndexOutOfBoundsException e){
+            return new SendMessage(chatId, "Вы неправильно ввели данные. бла бла");
+        }
 
-        return new SendMessage(chatId, outText.toString()).setParseMode(ParseMode.HTML);
     }
 }
