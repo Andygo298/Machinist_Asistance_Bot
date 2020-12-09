@@ -11,13 +11,16 @@ import java.util.Map;
 
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Document(collection = "toleranceData")
-public class ToleranceData implements Serializable {
+@Document(collection = "shaftToleranceData")
+public class ShaftToleranceData implements Serializable {
 
     @Id
     String id;
     Double fromDimension;
     Double toDimension;
-    Map<String, Integer> tolerances;
-
+    Map<String,Integer> toleranceValueOther;
+    Map<String,Integer> toleranceValue5;
+    Map<String,Integer> toleranceValue6;
+    Map<String,Integer> toleranceValue7;
+    Map<String,Integer> toleranceValue8;
 }

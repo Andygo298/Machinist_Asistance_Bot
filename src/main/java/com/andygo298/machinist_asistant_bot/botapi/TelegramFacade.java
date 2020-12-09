@@ -64,9 +64,9 @@ public class TelegramFacade {
             case "/start":
                 botState = BotState.START_ECHO;
                 break;
-            case "Ввести имя":
-                botState = BotState.FILLING_PROFILE;
-                break;
+//            case "Ввести имя":
+//                botState = BotState.FILLING_PROFILE;
+//                break;
             case "ИНФО":
                 botState = BotState.SHOW_INFO_MENU;
                 break;

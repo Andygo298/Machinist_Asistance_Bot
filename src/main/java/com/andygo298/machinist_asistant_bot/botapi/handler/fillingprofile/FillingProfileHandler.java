@@ -61,10 +61,9 @@ public class FillingProfileHandler implements InputMessageHandler {
 
             userDataCache.setUsersCurrentBotState(userId, BotState.SHOW_MAIN_MENU);
 
-            String profileFilledMessage = messageService.getReplyText("reply.profileFilled",
-                    profileData.getNickName());
+            String profileFilledMessage = messageService.getReplyText("reply.profileFilled") + profileData.getNickName() + " ";
 
-            replyToUser = new SendMessage(chatId, profileFilledMessage + " куку епта.");
+            replyToUser = new SendMessage(chatId, profileFilledMessage );
         }
 
         userDataCache.saveUserProfileData(userId, profileData);

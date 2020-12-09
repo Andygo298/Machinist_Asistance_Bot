@@ -1,48 +1,54 @@
 package com.andygo298.machinist_asistant_bot.tolerance;
 
-import com.andygo298.machinist_asistant_bot.model.DeviationData;
-import com.andygo298.machinist_asistant_bot.model.ToleranceData;
-import com.andygo298.machinist_asistant_bot.repository.DeviationDataMongoRepository;
+import com.andygo298.machinist_asistant_bot.model.ShaftToleranceData;
 import com.andygo298.machinist_asistant_bot.repository.ToleranceDataMongoRepository;
+import com.andygo298.machinist_asistant_bot.repository.ShaftToleranceMongoRepository;
+//import com.andygo298.machinist_asistant_bot.repository.ToleranceDataMongoRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 @SpringBootTest
 public class ToleranceTest {
 
+//    @Autowired
+//    private ToleranceDataMongoRepository repository;
     @Autowired
-    private ToleranceDataMongoRepository repository;
+    private ToleranceDataMongoRepository deviationDataMongoRepository;
     @Autowired
-    private DeviationDataMongoRepository deviationDataMongoRepository;
+    private ShaftToleranceMongoRepository shaftToleranceMongoRepository;
+
+//    @Test
+//    public void getToleranceDataTest(){
+//        final String toleranceLetter = "h";
+//        final Integer toleranceValue = 14;
+//        final Double dim = 1.50;
+//
+//        ToleranceData fromDb = repository.findTolerance(
+//                dim,toleranceLetter,toleranceValue
+//        );
+//        System.out.println(fromDb.toString());
+//    }
 
     @Test
-    public void getToleranceDataTest(){
-        final String toleranceLetter = "h";
-        final Integer toleranceValue = 14;
-        final Double dim = 1.50;
+    public void getShaftData(){
+        Integer dim = 5;
+//        ShaftToleranceData shaftTolerance = shaftToleranceMongoRepository.findShaftToleranceDataByFromDimensionLessThanAndToDimensionGreaterThanEqual(dim, dim);
 
-        ToleranceData fromDb = repository.findTolerance(
-                dim,toleranceLetter,toleranceValue
-        );
-        System.out.println(fromDb.toString());
     }
 
-    @Test
-    public void saveToDeviationDataTest(){
-        final DeviationData deviationData = new DeviationData();
-        deviationData.setFromDimension(0.0);
-        deviationData.setToDimension(3.0);
-        Map<String,Integer> testmap = new HashMap<>();
-        testmap.put("a", -270);
-        testmap.put("b", -140);
-        testmap.put("c", -60);
-        deviationData.setToleranceValue(testmap);
+
+//    @Test
+//    public void saveToDeviationDataTest(){
+//        final ShaftToleranceData shaftToleranceData = new ShaftToleranceData();
+//        shaftToleranceData.setFromDimension(0.0);
+//        shaftToleranceData.setToDimension(3.0);
+//        Map<String,Integer> testmap = new HashMap<>();
+//        testmap.put("a", -270);
+//        testmap.put("b", -140);
+//        testmap.put("c", -60);
+//        shaftToleranceData.setToleranceValue(testmap);
 //        deviationDataMongoRepository.save(deviationData);
-        List<DeviationData> all = deviationDataMongoRepository.findAll();
-    }
+//        List<ShaftToleranceData> all = deviationDataMongoRepository.findAll();
+//    }
 }
